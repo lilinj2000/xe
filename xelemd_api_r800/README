@@ -1,0 +1,29 @@
+# user_demo 说明
+
+## 1. 配置文件
+默认文件名为refer.ini, 根据ReqUserLogin的域来填写部分信息(不需要TOPIC)
+
+## 2. spi回调对象
+
+2.1 spi创建
+ExampleSpi spi;
+
+## 3. 创建API对象
+CXeleFtdcMduserApi::CreateFtdcMduserApi(&spi);
+
+
+
+
+##  4. 连接前设置
+目前简化了连接和登录步骤, 不必单独调用行情注册和手动登录, 参数格式仍然相同, 为和以前的API
+区别开, 新的Init叫做LoginInit(), api不需要设置订阅行情
+
+## 5. api自动登录并启动
+api->LoginInit("tcp://127.0.0.1:1234", &login_info)
+如果返回值为XELE_SUCCESS(也就是0)表示已经连接并登录成功
+登录后会自动接受行情
+
+## 7. api对象的销毁
+api->Release() 如果处于连接状态则自动登出, 然后api对象销毁
+
+ 
